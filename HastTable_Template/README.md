@@ -53,5 +53,107 @@ In this project, we’ve already provided you with a completed iterator. You are
 
 ![image](https://github.com/jpangece/Cplusplus_DataStructure_Algorithms/assets/122253772/b6db0895-1b93-424d-be3e-73b56e51baa5)
 
+Here _bucketIt_ means which bucket the iterator is in, _listItBefore_ means the iterator pointer that points “before” the key-value pair in the linked list.
+
+We’ll give a simple explanation of the “before” iterator. If you want to erase a node in a linked list, you need to link the previous node and the next node. However, the list is single directional, so that you can’t get the previous node in O time unless you’ve saved it. If you always use a “before” iterator, the deletion of node will be possible, and you can access the current node by “next” of the “before” iterator. This is a built-in functionality of the std::forward_list class. The class also provides a before_begin method, which is different from other STL containers. You can check the documentation for more information. 
 
 
+Since the list is single directional (in order to save memory), the iterator only supports single directional iteration. The operator ++ is already overloaded for you. The iterator doesn’t have a const version, you can implement it if you’reinterested in iterators, but it’s not mandatory. You can see the detail implementation of the iterator in the starter code. 
+
+We also defines a variable
+
+![image](https://github.com/jpangece/Cplusplus_DataStructure_Algorithms/assets/122253772/da63f6c9-1813-4d55-8e8b-12f5188bf075)
+
+in the hash table. It provides an O(1) access to the the first key-value pair in the hash table. You need to update its value whenever an insert, erase or rehash operation is applied to the hash table.
+
+What’s more, the hash table supports basic iteration and range-for loops with the help of iterators and two methods:
+begin and end. More specifically, with the C++98 standard you can iterate the hash table by:
+
+![image](https://github.com/jpangece/Cplusplus_DataStructure_Algorithms/assets/122253772/482bc14f-fc12-4f5b-ba77-115602fb07c5)
+
+With C++11, you can use the following as an alternative:
+
+![image](https://github.com/jpangece/Cplusplus_DataStructure_Algorithms/assets/122253772/bb92fc57-4619-4f50-9b8b-ee85a69b6fa1)
+
+With C++17, you can even do it in a more graceful way (similar to python and some other modern languages):
+
+![image](https://github.com/jpangece/Cplusplus_DataStructure_Algorithms/assets/122253772/1afe39e5-ded0-40ab-a5ce-d510550cf8ee)
+
+The order of the output of the above code is arbitrary and is dependent on implementation. We’ll not test the internal order of the key-value pairs in your hash table (returned by iteration), since they’re meant to be “unordered”.
+
+### 2.2 Comparison of Hash Table and Linked List
+We also recommend you to study the performances of hash table and linked list. Basically, you will compare these classes:
+
+• HashTable
+• std::unordered_map
+• std::list or std::forward_list (their performances should be similar)
+
+You can design your own comparison metric. For example, you can insert n key-value pairs into all these classes, then run k find, update, insert or erase operations. In a linked list, you can use linear search, it should be very simple to implement these operations with std::list or std::forward_list.
+
+No report is required, but you are recommended to study their differences for your better understanding in terms of hash table.
+
+#### 2.2.1 Hints
+
+• The performance of programs on Windows is usually not stable, so you should do the experiments on a Unix based system.
+• You may want to write another program to do this study.
+• You can use the C++11 pseudo-random number generation library to generate more randomized numbers (instead of using std::rand).
+• You can use the C++11 chrono library to get more accurate runtime of functions than std::clock.
+• (Optional) You can use GNU Perf (only available on Linux) to find the bottleneck of your implementation.
+• Although the major factor that affects the runtime is the size of the input array, however, the runtime for an algorithm may also weakly depend on the detailed input array. Thus, for each size, you should generate a number of arrays of that size and obtain the mean runtime on all these arrays. Also, for fair comparison, the same set of arrays should be applied to all the data structures.
+• You should try at least 5 representative sizes
+
+### 3. Implementation Requirements and Restrictions
+#### 3.1 Requirements
+• You must make sure that your code compiles successfully on a Linux operating system with g++ and the options -std=c++1z -Wconversion -Wall -Werror -Wextra -pedantic.
+• You should not change the definitions of the functions and variables, as well as the public or protected keywords for them in hashtable.hpp.
+• You can define helper functions and new variables, don’t forget to mark them as private or protected.
+• You should only hand in one file hashtable.hpp.
+• You can use any header file defined in the C++17 standard. You can use cppreference as a reference.
+
+You only need to implement the methods (functions) marked with “TODO” in the file hashtable.hpp. Here is a list of the methods (functions):
+
+• Copy Constructor and Assignment Constructor
+• findMinimumBucketSize
+• find
+• insert
+• erase
+• operator[]
+• rehash
+
+#### 3.2 Memory Leak
+Hint: You’re not going to use any dynamic memory allocation functions (new, malloc, etc.) directly in this project, thus it’s not possible to have memory leak in your program. This section is only for your reference.
+
+You may not leak memory in any way. To help you see if you are leaking memory, you may wish to call valgrind, which can tell whether you have any memory leaks. (You need to install valgrind first if your system does not have this program.) The command to check memory leak is:
+
+valgrind --leak-check=full <COMMAND>
+
+You should replace <COMMAND> with the actual command you use to issue the program under testing. For example, if you want to check whether running program
+
+./main < input.txt
+
+causes memory leak, then <COMMAND> should be “./main < input.txt”. Thus, the command will be 
+
+valgrind --leak-check=full ./main < input.txt
+
+### 4. Acknowledgment
+The programming is co-authored by Yihao Liu, an alumni of JI and the chief architect of JOJ.
+
+#### References
+[1] std::unordered_map - cppreference : https://en.cppreference.com/w/cpp/container/unordered_map
+
+[2] std::forward_list - cppreference : https://en.cppreference.com/w/cpp/container/forward_list
+
+[3] Range-based for loop - cppreference: https://en.cppreference.com/w/cpp/language/range-for
+
+### Appendix
+![image](https://github.com/jpangece/Cplusplus_DataStructure_Algorithms/assets/122253772/a197f76e-1dca-4fd5-bedf-3a5e603077e1)
+![image](https://github.com/jpangece/Cplusplus_DataStructure_Algorithms/assets/122253772/26fb7fa0-67be-4806-94f0-f2a5538366d2)
+
+![image](https://github.com/jpangece/Cplusplus_DataStructure_Algorithms/assets/122253772/6d42a6f2-77d9-4129-8f60-815983b4aae1)
+![image](https://github.com/jpangece/Cplusplus_DataStructure_Algorithms/assets/122253772/0079b2f5-cc3a-4082-a180-753903c16f82)
+![image](https://github.com/jpangece/Cplusplus_DataStructure_Algorithms/assets/122253772/d18f6d8c-0941-4c41-9aa1-db90cbff35f9)
+![image](https://github.com/jpangece/Cplusplus_DataStructure_Algorithms/assets/122253772/198c7c24-10ef-4847-b7ca-3055440451c7)
+![image](https://github.com/jpangece/Cplusplus_DataStructure_Algorithms/assets/122253772/1cc0aa9e-5d04-4285-ada8-195185c21334)
+![image](https://github.com/jpangece/Cplusplus_DataStructure_Algorithms/assets/122253772/d3069481-9698-44f4-b633-ff04019dbaa4)
+![image](https://github.com/jpangece/Cplusplus_DataStructure_Algorithms/assets/122253772/15387a89-c338-4d17-a07a-1cefa7c36ec3)
+![image](https://github.com/jpangece/Cplusplus_DataStructure_Algorithms/assets/122253772/2672330d-c2d1-4e11-9a7c-6c1c2fa5c96f)
