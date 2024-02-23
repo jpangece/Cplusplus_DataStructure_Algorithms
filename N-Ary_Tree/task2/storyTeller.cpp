@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include "constant.h"
 #include "node.h"
 
@@ -23,6 +22,5 @@ int main() {
         cout << storyProcess[idx];
     }
     cout<<endl;
-
     root.~Node();
 }
